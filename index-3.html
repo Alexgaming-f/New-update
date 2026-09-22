@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCN | Global Chat News</title>
+<meta name="description" content="Global Chat News — developing stories, community reports and verified updates.">
+<style>
+:root{--red:#e50914;--dark:#090909;--ink:#161616;--muted:#6b7280;--line:#e5e7eb;--bg:#f5f6f8;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit}.ticker{height:36px;background:#050505;color:#fff;display:flex;align-items:center;overflow:hidden;font-size:12px;font-weight:700;letter-spacing:.3px}
+.ticker b{background:var(--red);height:100%;display:flex;align-items:center;padding:0 20px;white-space:nowrap}.ticker span{padding-left:22px;white-space:nowrap}
+header{background:#fff;border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:21px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}.mark{width:48px;height:48px;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:950;font-size:21px;border-radius:10px}.brand h1{font-size:24px;line-height:1;margin:0;font-weight:950;letter-spacing:-1px}.brand small{display:block;color:#777;font-size:10px;letter-spacing:2px;margin-top:5px}
+.live{font-size:12px;font-weight:800}.dot{color:var(--red);font-size:18px;vertical-align:-2px}
+nav{background:#fff;border-top:1px solid #f1f1f1}.navin{max-width:1180px;margin:auto;padding:0 22px;display:flex;gap:25px;align-items:center;height:46px;font-size:13px;font-weight:800}.navin a:first-child{color:var(--red)}
+.wrap{max-width:1180px;margin:30px auto;padding:0 22px}.breaking{display:flex;align-items:center;gap:12px;margin-bottom:18px}.badge{background:var(--red);color:#fff;font-size:11px;font-weight:900;padding:8px 11px;border-radius:4px}.breaking span{font-size:13px;color:#555;font-weight:700}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}.hero{height:300px;background:radial-gradient(circle at 75% 25%,#555,#161616 50%,#050505);display:flex;align-items:center;padding:38px;color:#fff;position:relative}.hero:after{content:"DEVELOPING STORY";position:absolute;right:22px;top:20px;background:var(--red);padding:7px 10px;font-size:10px;font-weight:900;border-radius:3px}.heroText{max-width:650px}.heroText .ey{font-size:11px;letter-spacing:2px;color:#ddd;font-weight:800}.heroText strong{display:block;font-size:31px;line-height:1.08;margin-top:10px}.content{padding:30px 34px}.content h2{font-size:42px;line-height:1.06;letter-spacing:-1.5px;margin:0 0 13px}.meta{color:#777;font-size:12px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:24px}.content p{font-size:17px;line-height:1.78;margin:0 0 20px}.lead{font-size:19px!important;font-weight:650;line-height:1.65!important}
+.callout{border-left:5px solid var(--red);background:#f8f8f8;padding:19px 20px;margin:27px 0;font-weight:750;line-height:1.6}
+.warning{background:#fff5f5;border:1px solid #ffd4d4;border-radius:8px;padding:18px 20px;margin-top:28px;font-size:13px;line-height:1.65;color:#4b1d1d}.warning strong{color:#a50008}
+.side{display:flex;flex-direction:column;gap:18px}.sidebox{background:#fff;border:1px solid var(--line);border-radius:10px;padding:21px}.sidebox h3{margin:0 0 16px;font-size:16px}.story{padding:13px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45;font-weight:750}.story:first-of-type{border-top:0;padding-top:0}.num{color:var(--red);font-size:11px;font-weight:900;margin-right:7px}
+.sectionTitle{font-size:23px;margin:35px 0 15px}.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.fact{border:1px solid var(--line);border-radius:8px;padding:16px;background:#fafafa}.fact b{display:block;font-size:11px;text-transform:uppercase;color:#777;margin-bottom:7px}.fact span{font-size:14px;font-weight:750;line-height:1.45}
+footer{background:#0a0a0a;color:#aaa;margin-top:45px}.foot{max-width:1180px;margin:auto;padding:35px 22px;display:flex;justify-content:space-between;gap:30px}.foot strong{color:#fff}.foot p{font-size:12px;line-height:1.6;max-width:620px;margin:8px 0 0}@media(max-width:850px){.grid{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.content h2{font-size:34px}.hero{height:240px}}@media(max-width:650px){.wrap section.card div[style*="grid-template-columns"]{grid-template-columns:1fr!important}}
+#downBtn{position:fixed;right:18px;bottom:20px;z-index:50;border:0;border-radius:30px;background:#e50914;color:#fff;padding:12px 17px;font-weight:900;box-shadow:0 8px 25px #0003;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}#downBtn span{font-size:10px;letter-spacing:.5px;vertical-align:2px;margin-left:5px}
+@media(max-width:560px){.navin{overflow:auto;gap:18px}.head{padding:16px}.live{display:none}.wrap{padding:0 13px;margin-top:20px}.hero{height:205px;padding:25px}.heroText strong{font-size:24px}.content{padding:23px 20px}.content h2{font-size:29px}.content p{font-size:16px}.side{display:flex}.facts{grid-template-columns:1fr}.foot{display:block}}
+</style>
+</head>
+<body>
+
+<div class="ticker"><b>BREAKING</b><span>NEXORA controversy remains under discussion as a new relationship-related claim involving Sam circulates online • Claim remains unverified</span></div>
+
+<header>
+ <div class="head">
+  <a class="brand" href="#"><div class="mark">GC</div><div><h1>GLOBAL CHAT NEWS</h1><small>COMMUNITY • REPORTS • UPDATES</small></div></a>
+  <div class="live"><span class="dot">●</span> LIVE DESK &nbsp; | &nbsp; SEPT 22, 2026</div>
+ </div>
+ <nav><div class="navin"><a href="#">HOME</a><a href="#breaking">BREAKING</a><a href="#story">COMMUNITY</a><a href="#facts">WHAT WE KNOW</a></div></nav>
+</header>
+
+<main class="wrap">
+ <div class="breaking" id="breaking"><span class="badge">BREAKING NEWS</span><span>Developing story • Information subject to verification</span></div>
+
+ <div class="grid">
+  <article class="card" id="story">
+   <div class="hero"><div class="heroText"><div class="ey">GLOBAL CHAT NEWS DESK</div><strong>Sam becomes the subject of a new claim following the NEXORA controversy</strong></div></div>
+   <div class="content">
+    <h2>NEXORA Controversy Still Unresolved as Sam Becomes the Subject of a New Claim</h2>
+    <div class="meta">September 22, 2026 &nbsp; • &nbsp; Global Chat News Desk &nbsp; • &nbsp; Developing</div>
+
+    <p class="lead">The NEXORA controversy had barely quieted down when Sam once again became a topic of discussion within the Global Chat community.</p>
+
+    <p>A new claim, allegedly made by a Pakistani hacker, has surfaced online concerning Sam's personal relationship. According to the claim, the girl Sam was allegedly in a relationship with left him following the NEXORA leak controversy.</p>
+
+    <div class="callout">The relationship-related allegation is currently circulating online and has not been independently verified.</div>
+
+    <p>The claim has sparked considerable discussion among Global Chat users. Some users are questioning what may have happened, while others are expressing skepticism about the source and authenticity of the allegation.</p>
+
+    <p>At the time of publication, there is no independent verification of the alleged hacker's identity or of the relationship-related claim. There is also no verified public statement from Sam confirming the alleged relationship or breakup.</p>
+
+    <p>The development has added another layer of discussion around Sam following the ongoing NEXORA controversy. Attention is now focused on whether credible evidence emerges or whether Sam responds publicly to the allegation.</p>
+
+    <h3 class="sectionTitle">What We Know So Far</h3>
+    <div class="facts" id="facts">
+      <div class="fact"><b>Claim</b><span>A relationship-related allegation involving Sam is circulating online.</span></div>
+      <div class="fact"><b>Source</b><span>The claim is attributed online to an alleged Pakistani hacker.</span></div>
+      <div class="fact"><b>Verification</b><span>No independent verification has been established at publication time.</span></div>
+      <div class="fact"><b>Response</b><span>No verified public response from Sam has been established for this report.</span></div>
+    </div>
+
+    <div class="warning"><strong>EDITOR'S NOTE:</strong> This article reports a circulating allegation, not an established fact. The identity of the alleged source and the underlying relationship claim have not been independently verified. Readers should avoid treating the allegation as confirmed without reliable evidence or an on-the-record statement.</div>
+   </div>
+  </article>
+
+  <aside class="side">
+   <div class="sidebox">
+    <h3>Most Discussed</h3>
+    <div class="story"><span class="num">01</span>NEXORA controversy continues to generate discussion</div>
+    <div class="story"><span class="num">02</span>New claim involving Sam draws attention</div>
+    <div class="story"><span class="num">03</span>Global Chat users debate the latest allegation</div>
+   </div>
+   <div class="sidebox">
+    <h3>Newsroom Notice</h3>
+    <p style="font-size:13px;line-height:1.65;color:#555;margin:0">We distinguish circulating claims from independently verified information. Updates will be added if credible evidence or an on-the-record statement becomes available.</p>
+   </div>
+  </aside>
+ </div>
+
+<div class="wrap" style="padding-top:0">
+  <section class="card" style="padding:28px 34px;margin-top:24px">
+    <h3 style="font-size:22px;margin:0 0 14px">Community Discussion</h3>
+    <p style="font-size:16px;line-height:1.75;color:#444;margin:0 0 16px">
+      Discussion around the claim continues across the Global Chat community. Users are
+      sharing reactions, asking questions about the source, and waiting for independently
+      verifiable information before drawing conclusions.
+    </p>
+    <p style="font-size:16px;line-height:1.75;color:#444;margin:0">
+      This page will be updated if credible evidence, an official statement, or additional
+      independently verifiable information becomes available.
+    </p>
+  </section>
+
+  <section class="card" style="padding:28px 34px;margin-top:18px">
+    <h3 style="font-size:22px;margin:0 0 14px">Follow the Story</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:8px;padding:18px">
+        <b style="display:block;font-size:11px;color:#777;margin-bottom:7px">UPDATE 01</b>
+        <span style="font-size:14px;line-height:1.45">NEXORA controversy remains under discussion.</span>
+      </div>
+      <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:8px;padding:18px">
+        <b style="display:block;font-size:11px;color:#777;margin-bottom:7px">UPDATE 02</b>
+        <span style="font-size:14px;line-height:1.45">A new relationship-related claim begins circulating.</span>
+      </div>
+      <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:8px;padding:18px">
+        <b style="display:block;font-size:11px;color:#777;margin-bottom:7px">UPDATE 03</b>
+        <span style="font-size:14px;line-height:1.45">Verification and further statements remain pending.</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer><div class="foot"><div><strong>GLOBAL CHAT NEWS</strong><p>Independent-style community news page for developing stories and discussion.</p></div><div><strong>EDITORIAL STANDARD</strong><p>Unverified allegations are clearly identified and should not be treated as confirmed facts.</p></div></div></footer>
+
+<button id="downBtn" aria-label="Scroll to bottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">
+  ↓ <span>SCROLL FOR MORE</span>
+</button>
+<script>
+window.addEventListener('scroll',function(){
+  const b=document.getElementById('downBtn');
+  b.style.opacity=(window.scrollY > 180 && window.scrollY < document.body.scrollHeight-window.innerHeight-120)?'1':'0';
+  b.style.pointerEvents=b.style.opacity==='1'?'auto':'none';
+});
+</script>
+
+</body>
+</html>
